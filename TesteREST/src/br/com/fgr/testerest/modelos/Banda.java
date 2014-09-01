@@ -12,6 +12,11 @@ public class Banda implements Serializable {
 
     public Banda() {
 
+        this.id = 0L;
+        this.nomeBanda = "";
+        this.anoFormacao = 0;
+        this.timeStamp = 0L;
+
     }
 
     public Banda(long id, String nomeBanda, int anoFormacao, long timeStamp) {

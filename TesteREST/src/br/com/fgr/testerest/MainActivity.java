@@ -22,8 +22,10 @@ public class MainActivity extends ListActivity {
         bandas = new ArrayList<Banda>();
         Banda b1 = new Banda(0, "x", 1900, 123);
         Banda b2 = new Banda(1, "y", 1910, 334);
+        Banda b3 = new Banda(2, "z", 1980, 332334);
         bandas.add(b1);
         bandas.add(b2);
+        bandas.add(b3);
         
         adapter = new ArrayAdapter<Banda>(this,
                 android.R.layout.simple_list_item_1, bandas);
