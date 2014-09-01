@@ -7,8 +7,21 @@ public class Banda implements Serializable {
     private static final long serialVersionUID = 2485955445267633627L;
     private long id;
     private String nomeBanda;
-    private int anoFormcacao;
+    private int anoFormacao;
     private long timeStamp;
+
+    public Banda() {
+
+    }
+
+    public Banda(long id, String nomeBanda, int anoFormacao, long timeStamp) {
+
+        this.id = id;
+        this.nomeBanda = nomeBanda;
+        this.anoFormacao = anoFormacao;
+        this.timeStamp = timeStamp;
+
+    }
 
     public long getId() {
 
@@ -22,9 +35,9 @@ public class Banda implements Serializable {
 
     }
 
-    public int getAnoFormcacao() {
+    public int getAnoFormacao() {
 
-        return anoFormcacao;
+        return anoFormacao;
 
     }
 
@@ -46,15 +59,22 @@ public class Banda implements Serializable {
 
     }
 
-    public void setAnoFormcacao(int anoFormcacao) {
+    public void setAnoFormacao(int anoFormacao) {
 
-        this.anoFormcacao = anoFormcacao;
+        this.anoFormacao = anoFormacao;
 
     }
 
     public void setTimeStamp(long timeStamp) {
 
         this.timeStamp = timeStamp;
+
+    }
+
+    @Override
+    public String toString() {
+
+        return id + ". " + nomeBanda + " - " + anoFormacao + " " + timeStamp;
 
     }
 
