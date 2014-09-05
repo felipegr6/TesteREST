@@ -2,6 +2,8 @@
 <resources>
 
     <string name="app_name">TesteREST</string>
-    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="authority">br.com.fgr.testerest.provider</string>
+    <string name="account_type">account.testerest.fgr.com.br</string>
 
 </resources>
