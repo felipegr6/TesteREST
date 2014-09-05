@@ -37,7 +37,7 @@ public class MainActivity extends ListActivity {
                 .getSystemService(Context.ACCOUNT_SERVICE);
         accountManager.addAccountExplicitly(mAccount, null, null);
 
-        ContentResolver.setIsSyncable(mAccount, RestProvider.AUTHORITY, 1);
+//        ContentResolver.setIsSyncable(mAccount, RestProvider.AUTHORITY, 1);
         ContentResolver.setSyncAutomatically(mAccount, RestProvider.AUTHORITY,
                 true);
         ContentResolver.addPeriodicSync(mAccount, RestProvider.AUTHORITY,
