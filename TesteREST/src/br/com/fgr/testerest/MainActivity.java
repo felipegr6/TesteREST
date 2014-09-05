@@ -9,6 +9,7 @@ import android.app.ListActivity;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.os.Bundle;
+import android.view.Menu;
 import android.widget.ArrayAdapter;
 import br.com.fgr.testerest.modelos.Banda;
 import br.com.fgr.testerest.provider.RestProvider;
@@ -37,7 +38,7 @@ public class MainActivity extends ListActivity {
                 .getSystemService(Context.ACCOUNT_SERVICE);
         accountManager.addAccountExplicitly(mAccount, null, null);
 
-//        ContentResolver.setIsSyncable(mAccount, RestProvider.AUTHORITY, 1);
+        ContentResolver.setIsSyncable(mAccount, RestProvider.AUTHORITY, 1);
         ContentResolver.setSyncAutomatically(mAccount, RestProvider.AUTHORITY,
                 true);
         ContentResolver.addPeriodicSync(mAccount, RestProvider.AUTHORITY,
@@ -56,6 +57,13 @@ public class MainActivity extends ListActivity {
 
         setListAdapter(adapter);
 
+    }
+    
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
     }
 
 }
