@@ -57,7 +57,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
     public void onPerformSync(Account account, Bundle extras, String authority,
             ContentProviderClient provider, SyncResult syncResult) {
 
-        Log.i(TAG, "onPerformSync");
+        Log.i(TAG, "onPerformSync()");
         long indice;
 
         ContentValues mNewValues;
@@ -95,7 +95,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 
                     mNewUri = mContentResolver.insert(RestProvider.CONTENT_URI,
                             mNewValues);
-                    
+
                     Log.i(TAG, mNewUri.toString());
 
                 }
