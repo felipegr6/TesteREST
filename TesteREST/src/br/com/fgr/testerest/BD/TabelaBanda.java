@@ -13,7 +13,7 @@ public class TabelaBanda {
     public static final String[] TODAS_COLUNAS = { COLUNA_ID, COLUNA_NOMEBANDA,
             COLUNA_ANOFORMACAO, COLUNA_TS };
 
-    private static final String TAG = TabelaBanda.class.getClass().getName();
+    private static final String TAG = TabelaBanda.class.getClass().getSimpleName();
     private static String DATABASE_CREATE = "CREATE TABLE " + TABELA_BANDA
             + "(" + COLUNA_ID + " INTEGER PRIMARY KEY, " + COLUNA_NOMEBANDA
             + " TEXT NOT NULL, " + COLUNA_ANOFORMACAO + " INTEGER NOT NULL, "

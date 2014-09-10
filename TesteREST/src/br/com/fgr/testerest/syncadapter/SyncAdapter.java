@@ -65,7 +65,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 
         indice = ultimoTs();
 
-        String urlString = "http://192.168.43.240:8080/helloworld-webapp/rest/bandas/ts/"
+        String urlString = "http://192.168.0.5:8080/helloworld-webapp/rest/bandas/ts/"
                 + indice;
         HttpClient httpclient = new DefaultHttpClient();
         HttpGet httpget = new HttpGet(urlString);

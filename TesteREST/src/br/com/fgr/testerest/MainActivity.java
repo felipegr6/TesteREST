@@ -1,26 +1,27 @@
 package br.com.fgr.testerest;
 
-import java.util.List;
-
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.ListActivity;
 import android.app.LoaderManager.LoaderCallbacks;
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.CursorLoader;
 import android.content.Loader;
+import android.database.ContentObserver;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
 import br.com.fgr.testerest.BD.TabelaBanda;
-import br.com.fgr.testerest.modelos.Banda;
 import br.com.fgr.testerest.provider.RestProvider;
 
 public class MainActivity extends ListActivity implements
@@ -28,10 +29,12 @@ public class MainActivity extends ListActivity implements
 
     private static final String ACCOUNT = "default_account";
     private static final String ACCOUNT_TYPE = "account.testerest.fgr.com.br";
-    private static final long SYNC_INTERVAL = 60L;
-    private ArrayAdapter<Banda> adapter01;
+    private static final long SYNC_INTERVAL = 10L;
+    // private ArrayAdapter<Banda> adapter01;
     private SimpleCursorAdapter adapter02;
-    private List<Banda> bandas;
+    // private List<Banda> bandas;
+
+    private int idNotificacao = 0;
 
     ContentResolver mContentResolver;
     Account mAccount;
@@ -64,6 +67,9 @@ public class MainActivity extends ListActivity implements
                 from, to, 0);
         setListAdapter(adapter02);
 
+        mContentResolver.registerContentObserver(RestProvider.CONTENT_URI,
+                true, new ObservarBD(this, new Handler()));
+
         /*
          * bandas = new ArrayList<Banda>();
          * 
@@ -73,7 +79,7 @@ public class MainActivity extends ListActivity implements
          * while (c.moveToNext()) {
          * 
          * Banda b = new Banda(c.getLong(0), c.getString(1), c.getInt(2),
-         * c.getLong(3)); bandas.add(b);
+         * c.getLong(3)); banda s.add(b);
          * 
          * }
          * 
@@ -131,6 +137,60 @@ public class MainActivity extends ListActivity implements
 
         adapter02.swapCursor(null);
 
+    }
+
+    class ObservarBD extends ContentObserver {
+
+        private Context mContext;
+
+        public ObservarBD(Context context, Handler handler) {
+
+            super(handler);
+            this.mContext = context;
+
+        }
+
+        @Override
+        public boolean deliverSelfNotifications() {
+
+            return true;
+
+        }
+
+        @Override
+        public void onChange(boolean selfChange) {
+
+            this.onChange(selfChange, null);
+
+        }
+
+        public void onChange(boolean selfChange, Uri uri) {
+
+            String novaBanda = "";
+
+            // Intent intent = new Intent(this.mContext,
+            // NotificationReceiver.class);
+            // PendingIntent pIntent = PendingIntent.getActivity(this, 0,
+            // intent, 0);
+
+            Cursor c = mContentResolver.query(uri, null, null, null, null);
+
+            if (c.moveToLast())
+                novaBanda = c.getString(1);
+
+            Notification n = new Notification.Builder(this.mContext)
+                    .setContentTitle("Bandas")
+                    .setContentText("Nova Banda Adicionada: " + novaBanda)
+                    .setSmallIcon(R.drawable.ic_launcher).setAutoCancel(true)
+                    .setDefaults(-1).build();
+
+            NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+
+            notificationManager.notify(++idNotificacao, n);
+            
+            c.close();
+
+        }
     }
 
 }
